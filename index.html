@@ -241,6 +241,27 @@
   .scrollable-tower-list::-webkit-scrollbar-track {
     background-color: rgba(0, 0, 0, 0.3);
   }
+  .difficulty-filter-sm {
+    width: auto;
+    flex: 1;
+    max-width: 150px;
+    padding: 6px 10px;
+    font-size: 14px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 6px;
+  }
+  .watermark-footer {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.3);
+    pointer-events: none;
+    z-index: 1000;
+    user-select: none;
+  }
   </style>
 </head>
 <body>
@@ -251,6 +272,7 @@
       <button onclick="sortByName()" title="Sort by Name">A-Z</button>
       <button onclick="sortByDifficulty()" title="Sort by Difficulty">D</button>
       <button onclick="selectRandomTower()" title="Select Random Tower">🎲</button>
+      <input type="text" id="difficultyFilter" class="difficulty-filter-sm" placeholder="Difficulty..." oninput="filterByDifficulty()"/>
     </div>
     <div class="scrollable-tower-list" id="tower-list"></div>
   </div>
@@ -534,7 +556,6 @@
     { TowerName: "Tower of Three Pillars Of Doom", Difficulty: "Intense", Link: "https://scratch.mit.edu/projects/755561814",  Creators: "@OmegaRow" },
     { TowerName: "Tower of Terrifying Tilted Agony", Difficulty: "Intense", Link: "https://scratch.mit.edu/projects/756533199",  Creators: "@NTG302" },
     { TowerName: "Tower of Quite Maddening Tasks", Difficulty: "Remorseless", Link: "https://scratch.mit.edu/projects/713108058",  Creators: "@whitlow72" },
-    //
     { TowerName: "Etho Slab", Difficulty: "Nil", Link: "https://scratch.mit.edu/projects/828109869",  Creators: "@OliveGardenWorker" },
     { TowerName: "Tower of Ghastly Ghost Jumps", Difficulty: "Unreal", Link: "https://scratch.mit.edu/projects/795341269",  Creators: "@jkl008" },
     { TowerName: "Tower of Torturous and Nefarious Excruciation", Difficulty: "Unreal", Link: "https://scratch.mit.edu/projects/778546353",  Creators: "@singlebl" },
@@ -553,9 +574,45 @@
     { TowerName: "Yes Tower", Difficulty: "Terrifying", Link: "https://scratch.mit.edu/projects/746261189",  Creators: "@BlueDragonKai" },
     { TowerName: "Tower of Terrifying Agony", Difficulty: "Horrific", Link: "https://scratch.mit.edu/projects/737629234",  Creators: "@Bloonmaster9001" },
     { TowerName: "Tower of Purity", Difficulty: "Horrific", Link: "https://scratch.mit.edu/projects/708211917",  Creators: "@singlebl" },
-    { TowerName: "Tower of Terrifying Void", Difficulty: "Eternal", Link: "https://scratch.mit.edu/projects/706737954",  Creators: "@BlueDragonKai" }
+    { TowerName: "Tower of Terrifying Void", Difficulty: "Eternal", Link: "https://scratch.mit.edu/projects/706737954",  Creators: "@BlueDragonKai" },
+    { TowerName: "Tower of the Clouds Below", Difficulty: "Medium", Link: "https://scratch.mit.edu/projects/960915774 ", Creators: "@jkl008" },
+    { TowerName: "Tower of Adventurous Introductions", Difficulty: "Easy", Link: "https://scratch.mit.edu/projects/948576043 ", Creators: "@BlueDragonKai" },
+    { TowerName: "Fortunately a Speedrun Tower: Revamp", Difficulty: "Hard", Link: "https://scratch.mit.edu/projects/732275454 ", Creators: "@BlueDragonKai" },
+    { TowerName: "Tower of Upsidedown Quirkiness", Difficulty: "Difficult", Link: "https://scratch.mit.edu/projects/730434955 ", Creators: "@charlielow10" },
+    { TowerName: "Tower of Red Trials", Difficulty: "Remorseless", Link: "https://scratch.mit.edu/projects/718519962 ", Creators: "@micsza" },
+    { TowerName: "Tower of Structured Tides", Difficulty: "Medium", Link: "https://scratch.mit.edu/projects/728315265 ", Creators: "@ElementyFireXD" },
+    { TowerName: "Tower of Past One's Prime", Difficulty: "Remorseless", Link: "https://scratch.mit.edu/projects/668047573 ", Creators: "@jipiasasin" },
+    { TowerName: "Citadel of Faded Color", Difficulty: "Intense", Link: "https://scratch.mit.edu/projects/723847585 ", Creators: "@BlueDragonKai" },
+    { TowerName: "Room of Slanted Arpeggio", Difficulty: "Insane", Link: "https://scratch.mit.edu/projects/714666919 ", Creators: "@BlueDragonKai" },
+    { TowerName: "Tower of Annoying Trap Gameplay", Difficulty: "Challenging", Link: "https://scratch.mit.edu/projects/713855145 ", Creators: "@micsza" },
+    { TowerName: "Tower of Strange Colour Decisions", Difficulty: "Challenging", Link: "https://scratch.mit.edu/projects/706064954 ", Creators: "@E_E-12345" },
+    { TowerName: "Tower of No Effort", Difficulty: "Easy", Link: "https://scratch.mit.edu/projects/690980314 ", Creators: "@micsza" },
+    { TowerName: "Citadel of No Creativity", Difficulty: "Remorseless", Link: "https://scratch.mit.edu/projects/921609913 ", Creators: "@beatboxer433" },
+    { TowerName: "Pillar of the Prolonged Unfunniness", Difficulty: "Insane", Link: "https://scratch.mit.edu/projects/739545528 ", Creators: "@charlielow10" },
+    { TowerName: "Steeple of Frozen Hell", Difficulty: "Challenging", Link: "https://scratch.mit.edu/projects/738651896 ", Creators: "@BlueDragonKai" },
+    { TowerName: "Tower of Floral Relaxation and Relief", Difficulty: "Medium", Link: "https://scratch.mit.edu/projects/736720818 ", Creators: "@charlielow10" },
+    { TowerName: "Tower of Clockwork Machinery", Difficulty: "Hard", Link: "https://scratch.mit.edu/projects/736962631 ", Creators: "@XXXCarl_The_AltXXX" },
+    { TowerName: "Room of You & Some Webs", Difficulty: "Intense", Link: "https://scratch.mit.edu/projects/736439739 ", Creators: "@XXXCarl_The_AltXXX" },
+    { TowerName: "Pillar of Eroded Ruins", Difficulty: "Medium", Link: "https://scratch.mit.edu/projects/736203609 ", Creators: "@XXXCarl_The_AltXXX" },
+    { TowerName: "Pillar of Interesting Extensions", Difficulty: "Hard", Link: "https://scratch.mit.edu/projects/734286954 ", Creators: "@micsza" },
+    { TowerName: "Tower of Random Colours", Difficulty: "Easy", Link: "https://scratch.mit.edu/projects/733153834 ", Creators: "@personkeystroke" },
+    { TowerName: "Tower of Miniature Mischief", Difficulty: "Challenging", Link: "https://scratch.mit.edu/projects/731953527 ", Creators: "@ElementyFireXD" },
+    { TowerName: "Room of Mid Easy", Difficulty: "Easy", Link: "https://scratch.mit.edu/projects/690072583 ", Creators: "@nguyentrungnguyen" },
+    //
+    { TowerName: "Tower of Toxic Xylyl", Difficulty: "Remorseless", Link: "https://scratch.mit.edu/projects/754076110 ", Creators: "@xplosion8" },
+    { TowerName: "Steeple of a Variety of Headhitters", Difficulty: "Intense", Link: "https://scratch.mit.edu/projects/743179377 ", Creators: "@WilliamBestGamers" },
+    { TowerName: "Tower of Continuous and Everlasting Joy", Difficulty: "Medium", Link: "https://scratch.mit.edu/projects/745167031 ", Creators: "@charlielow10" },
+    { TowerName: "Pillar of Perfectious Pastels", Difficulty: "Easy", Link: "https://scratch.mit.edu/projects/744293576 ", Creators: "@Psyeful23" },
+    { TowerName: "Tower of Dazzling Paradox", Difficulty: "Challenging", Link: "https://scratch.mit.edu/projects/744699015 ", Creators: "@BlueDragonKai2" },
+    { TowerName: "Tower of Simple Fun", Difficulty: "Effortless", Link: "https://scratch.mit.edu/projects/744399997 ", Creators: "@BlueDragonKai" },
+    { TowerName: "Citadel of Jovality and Insanity", Difficulty: "Intense", Link: "https://scratch.mit.edu/projects/743632543 ", Creators: "@BlueDragonKai" },
+    { TowerName: "Steeple of Vacant Scaling", Difficulty: "Challenging", Link: "https://scratch.mit.edu/projects/742932874 ", Creators: "@BlueDragonKai" },
+    { TowerName: "Tower of An Amazingly Boring Journey", Difficulty: "Extreme", Link: "https://scratch.mit.edu/projects/722065230 ", Creators: "@Bloonmaster9001" },
+    //
+    
   ];
-  //Nel's realm, and u1, u3, u5, u7, u9 subrealm tba (all w2 subrealms too) why did you read it? get out from here lol
+  //Nel's realm, and u1, u3, u5, u7, u9 subrealm tba (all w2,w3,w4,w5 subrealms too) why did you read it? get out from here lol
+  //boringgggggggg and im so tired adding ts 06.29.2025
 
   let towers = [...originalTowers];
   let checkedState = JSON.parse(localStorage.getItem("towerChecked")) || {};
@@ -672,6 +729,22 @@
     sortByDifficulty();
     showInfo(null);
   });
+
+  function filterByDifficulty() {
+    const difficultyQuery = document.getElementById("difficultyFilter").value.toLowerCase();
+    if (difficultyQuery === "") {
+      towers = [...originalTowers];
+    } else {
+      towers = originalTowers.filter(tower =>
+        tower.Difficulty.toLowerCase().includes(difficultyQuery)
+      );
+    }
+    renderTowers();
+    showInfo(null);
+  }
 </script>
+<div class="watermark-footer">
+  Made by <strong>Krayer</strong>
+</div>
 </body>
-</html>
+</html> 
